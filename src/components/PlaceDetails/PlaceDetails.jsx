@@ -31,6 +31,12 @@ const PlaceDetails = ({ place }) => {
         <Typography variant="h5" gutterBottom>
           {place.name}
         </Typography>
+        <Box display="flex" justifyContent="space-between" my={2}>
+          <Rating name="read-only" value={Number(place.rating)} readOnly />
+          <Typography component="legend">
+            {place.num_reviews} review{place.num_reviews > 1 && "s"}
+          </Typography>
+        </Box>
         <Box display="flex" justifyContent="space-between">
           <Typography gutterBottom variant="subtitle1" align="left">
             {place.price_level}
