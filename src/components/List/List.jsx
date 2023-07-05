@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import {
   Grid,
   Typography,
@@ -10,9 +10,24 @@ import {
 } from "@material-ui/core";
 import useStyles from "./styles";
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
-const List = ({ places, isLoading, type, setType, rating, setRating }) => {
+const List = ({
+  places,
+  isLoading,
+  type,
+  setType,
+  rating,
+  setRating,
+  child,
+}) => {
   const classes = useStyles();
-  
+  const [elRefs, setElRefs] = useState([]);
+  useEffect(() => {
+    setElRefs((refs) =>
+      Array(places.length)
+        .fill()
+        .map((_, i) => refs[i] || createRef())
+    );
+  }, [places]);
   return (
     <div className={classes.container}>
       <Typography varient="h4">
@@ -53,8 +68,12 @@ const List = ({ places, isLoading, type, setType, rating, setRating }) => {
           </FormControl>
           <Grid container spacing={3} className={classes.list}>
             {places?.map((place, i) => (
-              <Grid item key={i} xs={12}>
-                <PlaceDetails place={place} />
+              <Grid ref={elRefs[i]} item key={i} xs={12}>
+                <PlaceDetails
+                  place={place}
+                  selected={Number(child) === i}
+                  refProp={elRefs[i]}
+                />
               </Grid>
             ))}
             ;

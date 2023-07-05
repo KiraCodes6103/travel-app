@@ -6,7 +6,7 @@ import { getPlacesData } from "./api/index";
 import { useEffect, useState } from "react";
 const App = () => {
   const [places, setPlaces] = useState([]);
-
+  const [child, setChild] = useState(null);
   const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +50,7 @@ const App = () => {
             setType={setType}
             rating={rating}
             setRating={setRating}
+            child={child}
           />
         </Grid>
         <Grid item xs={12} md={8}>
@@ -58,6 +59,7 @@ const App = () => {
             setBounds={setBounds}
             coordinates={coordinates}
             places={filteredPlaces.length ? filteredPlaces : places}
+            setChild={setChild}
           />
         </Grid>
       </Grid>
